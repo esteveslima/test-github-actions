@@ -24,7 +24,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: script-output
-          path: output/
+          path: results/
 
   push_results_to_repo:
     needs: run_python
@@ -38,7 +38,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: script-output
-          path: output/
+          path: results/
 
       - name: Configure Git
         run: |
@@ -47,8 +47,8 @@ jobs:
 
       - name: Add, commit and push output files
         run: |
-          git add output/
-          git commit -m "Add script output [skip ci]" || echo "Nothing to commit"
+          git add results/
+          git commit -m "Add script results [skip ci]" || echo "Nothing to commit"
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
